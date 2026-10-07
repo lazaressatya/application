@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - master
-    paths:
-      - "apps/**"
+    
   workflow_dispatch:
 
 jobs:
@@ -38,7 +37,7 @@ jobs:
             --exclude ".github" \
             --exclude "node_modules" \
             ./ \
-            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/ubuntu/master/
+            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/ubuntu/prod_app/
 
       - name: Deploy Application
         run: |
@@ -50,11 +49,11 @@ jobs:
 
             set -e
 
-            cd /home/ubuntu/master
+            cd /home/ubuntu/prod_app
           
             echo "building the docker image"
 
-            docker build -t master .
+            docker build -t application:prod .
             echo "Starting application..."
             docker compose up -d
 
