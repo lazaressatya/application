@@ -1,7 +1,7 @@
 services:
   nextjs:
-    image: application:prod
-    container_name: prod_app
+    image: application:dev
+    container_name: dev_app
     ports:
-      - "3000:3000"
+      - "4000:3000"
     restart: always

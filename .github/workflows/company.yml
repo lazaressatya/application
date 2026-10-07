@@ -3,9 +3,9 @@ name: Deploy Next.js Application
 on:
   push:
     branches:
-      - master
+      - dev
     
-  workflow_dispatch:
+  
 
 jobs:
   deploy:
@@ -37,7 +37,7 @@ jobs:
             --exclude ".github" \
             --exclude "node_modules" \
             ./ \
-            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/ubuntu/prod_app/
+            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/ubuntu/dev_app/
 
       - name: Deploy Application
         run: |
@@ -49,11 +49,11 @@ jobs:
 
             set -e
 
-            cd /home/ubuntu/prod_app
+            cd /home/ubuntu/dev_app
           
             echo "building the docker image"
 
-            docker build -t application:prod .
+            docker build -t application:dev .
             echo "Starting application..."
             docker compose up -d
 
